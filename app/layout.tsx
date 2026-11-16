@@ -17,12 +17,12 @@ export const metadata: Metadata = {
   applicationName: site.name,
   authors: [{ name: site.parent.legalName }],
   formatDetection: { telephone: false },
-  openGraph: { type: "website", siteName: site.name, locale: site.locale, title: pages["/"].title, description: pages["/"].description, url: "/" },
-  twitter: { card: "summary_large_image" },
-  icons: { icon: "/icon.svg" },
+  openGraph: { type: "website", siteName: site.name, locale: site.locale, title: pages["/"].title, description: pages["/"].description, url: "/", images: [site.ogImage] },
+  twitter: { card: "summary_large_image", images: [site.ogImage.url] },
+  icons: { icon: "/icon.svg", apple: "/apple-icon.png" },
 };
 
-export const viewport: Viewport = { themeColor: "#0c1b2b", width: "device-width", initialScale: 1, viewportFit: "cover" };
+export const viewport: Viewport = { themeColor: "#0459BF", width: "device-width", initialScale: 1, viewportFit: "cover" };
 
 const organizationJsonLd = {
   "@context": "https://schema.org",
@@ -30,6 +30,7 @@ const organizationJsonLd = {
   name: site.name,
   url: site.url,
   email: site.email,
+  logo: `${site.url}/brand/barathgo-mark.svg`,
   description: site.description,
   parentOrganization: { "@type": "Organization", name: site.parent.legalName, url: site.parent.url },
 };

@@ -25,10 +25,10 @@ export function HeroVisual() {
               <path d="M0 300 L280 280" strokeWidth="10" />
             </g>
             <path d="M48 286 L92 286 L92 168 L168 168 L168 88 L226 88" stroke="#fff" strokeWidth="11" fill="none" strokeLinejoin="round" strokeLinecap="round" />
-            <path className="phone__route" d="M48 286 L92 286 L92 168 L168 168 L168 88 L226 88" stroke="#e8650f" strokeWidth="5" fill="none" strokeLinejoin="round" strokeLinecap="round" />
+            <path className="phone__route" d="M48 286 L92 286 L92 168 L168 168 L168 88 L226 88" stroke="#0459BF" strokeWidth="5" fill="none" strokeLinejoin="round" strokeLinecap="round" />
             <circle cx="48" cy="286" r="12" fill="#12805c" opacity=".18" />
             <circle cx="48" cy="286" r="6.5" fill="#12805c" stroke="#fff" strokeWidth="2.5" />
-            <path d="M226 62c-8 0-14 6-14 13.5 0 10 14 21.5 14 21.5s14-11.5 14-21.5C240 68 234 62 226 62Z" fill="#e8650f" stroke="#fff" strokeWidth="2.5" />
+            <path d="M226 62c-8 0-14 6-14 13.5 0 10 14 21.5 14 21.5s14-11.5 14-21.5C240 68 234 62 226 62Z" fill="#0459BF" stroke="#fff" strokeWidth="2.5" />
             <circle cx="226" cy="75.5" r="4.6" fill="#fff" />
             <g transform="translate(130 168)">
               <rect x="-14" y="-9" width="28" height="18" rx="6" fill="#0c1b2b" />

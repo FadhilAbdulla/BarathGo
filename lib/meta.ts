@@ -8,6 +8,7 @@ export function pageMeta(path: PagePath): Metadata {
     title: path === "/" ? { absolute: page.title } : page.title,
     description: page.description,
     alternates: { canonical: path },
-    openGraph: { type: "website", siteName: site.name, locale: site.locale, title: page.title, description: page.description, url: path },
+    openGraph: { type: "website", siteName: site.name, locale: site.locale, title: page.title, description: page.description, url: path, images: [site.ogImage] },
+    twitter: { card: "summary_large_image", title: page.title, description: page.description, images: [site.ogImage.url] },
   };
 }

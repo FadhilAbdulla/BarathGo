@@ -9,6 +9,8 @@ export const site = {
     "BarathGo is a community-first taxi platform launched under NFTCI. Book city rides, airport transfers, intercity and pilgrimage trips with fair fares and drivers who earn more.",
   email: "hello@barathgo.com",
   locale: "en_IN",
+  // 1200×630 social preview, rendered from scripts/og-image.html
+  ogImage: { url: "/og-image.png", width: 1200, height: 630, alt: "BarathGo — fair rides, driven by India’s cooperatives. An NFTCI initiative." },
   parent: {
     name: "NFTCI",
     legalName: "National Federation of Tourism & Transport Co-operatives of India Ltd",
