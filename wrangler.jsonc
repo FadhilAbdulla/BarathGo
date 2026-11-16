@@ -1,0 +1,24 @@
+{
+  // Cloudflare Worker: canonical-host redirects, serves the static export in out/, and handles POST /api/request.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "barathgo-web",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-09-01",
+  // `wrangler deploy` / `wrangler dev` run the Next.js static export first.
+  "build": { "command": "npm run build", "watch_dir": ["app", "components", "lib", "public"] },
+  "assets": {
+    "directory": "./out",
+    "binding": "ASSETS",
+    "html_handling": "drop-trailing-slash",
+    "not_found_handling": "404-page",
+    "run_worker_first": true
+  },
+  // 5 form submissions per minute per IP
+  "ratelimits": [{ "name": "REQUEST_LIMITER", "namespace_id": "1101", "simple": { "limit": 5, "period": 60 } }],
+  "vars": {
+    "MAIL_FROM": "BarathGo Website <website@barathgo.com>"
+  }
+  // Secrets (set in Cloudflare with `wrangler secret put`, never in git):
+  //   RESEND_API_KEY  — Resend API key
+  //   MAIL_TO         — inbox(es) that receive ride requests and enquiries (comma-separated)
+}

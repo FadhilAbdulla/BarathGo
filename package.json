@@ -1,0 +1,29 @@
+{
+  "name": "barathgo-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Website for BarathGo, the cooperative taxi platform launched under NFTCI",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && node scripts/postbuild.mjs",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p worker",
+    "preview": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "next": "^16.4.6",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261116.1",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "typescript": "^7.0.2",
+    "wrangler": "^4.162.0"
+  }
+}
