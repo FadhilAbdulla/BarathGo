@@ -9,7 +9,7 @@ export default function NotFound() {
       <Link className="btn btn-primary btn-lg" href="/">
         Go home
       </Link>
-      <Link className="btn btn-ghost btn-lg" href="/book">
+      <Link className="btn btn-ghost btn-lg" href="/ride">
         Book a ride
       </Link>
     </PageHero>

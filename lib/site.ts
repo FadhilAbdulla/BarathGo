@@ -22,7 +22,7 @@ export const site = {
   },
 } as const;
 
-export type PagePath = "/" | "/book" | "/services" | "/drive" | "/business" | "/safety" | "/about" | "/contact" | "/privacy" | "/terms";
+export type PagePath = "/" | "/ride" | "/driver" | "/services" | "/drive" | "/business" | "/safety" | "/about" | "/contact" | "/privacy" | "/terms";
 
 type PageSeo = { label: string; title: string; description: string; priority: number };
 
@@ -33,26 +33,32 @@ export const pages: Record<PagePath, PageSeo> = {
     description: site.description,
     priority: 1,
   },
-  "/book": {
-    label: "Book a ride",
-    title: "Book a Ride — City, Airport, Outstation & Rentals",
-    description: "Request a BarathGo ride: choose Auto, Mini, Sedan, SUV or EV, see an indicative fare and get your booking confirmed by call or SMS.",
+  "/ride": {
+    label: "Ride",
+    title: "Book a Ride — Upfront Fares, Verified Drivers",
+    description: "Book a BarathGo ride: see upfront fares for Auto, Mini, Sedan, SUV and EV, track your driver live and pay by UPI or cash.",
     priority: 0.9,
   },
+  "/driver": {
+    label: "Driver app",
+    title: "Driver App — Go Online and Start Earning",
+    description: "The BarathGo driver app: sign up, go online, accept nearby trips and track your earnings.",
+    priority: 0.6,
+  },
   "/services": {
-    label: "Ride options",
+    label: "Ride",
     title: "Ride Options — City, Intercity, Pilgrimage, Corporate & EV",
     description: "BarathGo services: everyday city rides, airport and railway transfers, outstation trips, hourly rentals, pilgrimage circuits, corporate travel and electric rides.",
     priority: 0.8,
   },
   "/drive": {
-    label: "Drive with us",
+    label: "Drive",
     title: "Drive with BarathGo — Fair Earnings for Drivers & Cooperatives",
     description: "Join BarathGo as a driver, fleet owner, taxi union or cooperative. Transparent payouts, welfare benefits and the backing of NFTCI.",
     priority: 0.9,
   },
   "/business": {
-    label: "For business",
+    label: "Business",
     title: "BarathGo for Business — Corporate, PSU & Institutional Travel",
     description: "Managed employee, guest and event travel for companies, PSUs, government bodies and tourism operators, with monthly billing and one dashboard.",
     priority: 0.7,
@@ -91,37 +97,5 @@ export const pages: Record<PagePath, PageSeo> = {
 
 export const primaryNav: PagePath[] = ["/services", "/drive", "/business", "/safety", "/about"];
 
-export type RideType = {
-  id: string;
-  name: string;
-  blurb: string;
-  seats: number;
-  base: number; // ₹ flag-down fare, includes the first 2 km
-  perKm: number; // ₹ per km after the first 2 km
-  perMin: number; // ₹ per minute of ride time
-  minimum: number; // ₹ minimum fare
-  green?: boolean;
-};
-
-// Indicative city fares. Final fares depend on the city, time of day, tolls and waiting time,
-// and are always shown in the app before the rider confirms.
-export const rideTypes: RideType[] = [
-  { id: "auto", name: "Auto", blurb: "Quick hops around town", seats: 3, base: 30, perKm: 13, perMin: 0.5, minimum: 30 },
-  { id: "mini", name: "Mini", blurb: "Compact AC hatchbacks", seats: 4, base: 50, perKm: 14, perMin: 1, minimum: 80 },
-  { id: "sedan", name: "Sedan", blurb: "Roomy AC sedans", seats: 4, base: 70, perKm: 17, perMin: 1.25, minimum: 110 },
-  { id: "suv", name: "SUV", blurb: "Six seats for family & luggage", seats: 6, base: 100, perKm: 22, perMin: 1.5, minimum: 160 },
-  { id: "ev", name: "EV", blurb: "Zero-tailpipe electric cars", seats: 4, base: 60, perKm: 15, perMin: 1, minimum: 90, green: true },
-];
-
-/** Indicative fare range for a trip, assuming average city speed of ~22 km/h. */
-export function estimateFare(ride: RideType, km: number) {
-  const minutes = (km / 22) * 60;
-  const raw = ride.base + Math.max(0, km - 2) * ride.perKm + minutes * ride.perMin;
-  const fare = Math.max(ride.minimum, raw);
-  const round = (value: number) => Math.round(value / 5) * 5;
-  return { low: round(fare * 0.95), high: round(fare * 1.1), minutes: Math.round(minutes) };
-}
-
-export const tripKinds = ["City ride", "Airport / railway transfer", "Outstation (one way)", "Outstation (round trip)", "Hourly rental", "Pilgrimage / tour package"] as const;
 
 export const absoluteUrl = (path: string) => (path === "/" ? `${site.url}/` : `${site.url}${path}`);

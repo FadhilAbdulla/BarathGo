@@ -1,14 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Plus_Jakarta_Sans } from "next/font/google";
-import { Footer } from "@/components/Footer";
-import { Header, type NavItem } from "@/components/Header";
-import { RevealObserver } from "@/components/RevealObserver";
-import { pages, primaryNav, site } from "@/lib/site";
+import { Inter } from "next/font/google";
+import { pages, site } from "@/lib/site";
 import "./globals.css";
-import "./components.css";
+import "./app.css";
+import "./site.css";
 
-const body = Inter({ subsets: ["latin"], variable: "--font-body", display: "swap" });
-const display = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["600", "700", "800"], variable: "--font-display", display: "swap" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -17,12 +14,14 @@ export const metadata: Metadata = {
   applicationName: site.name,
   authors: [{ name: site.parent.legalName }],
   formatDetection: { telephone: false },
+  manifest: "/manifest.webmanifest",
   openGraph: { type: "website", siteName: site.name, locale: site.locale, title: pages["/"].title, description: pages["/"].description, url: "/", images: [site.ogImage] },
   twitter: { card: "summary_large_image", images: [site.ogImage.url] },
   icons: { icon: "/icon.svg", apple: "/apple-icon.png" },
+  appleWebApp: { capable: true, title: site.name, statusBarStyle: "black-translucent" },
 };
 
-export const viewport: Viewport = { themeColor: "#0459BF", width: "device-width", initialScale: 1, viewportFit: "cover" };
+export const viewport: Viewport = { themeColor: "#000000", width: "device-width", initialScale: 1, viewportFit: "cover" };
 
 const organizationJsonLd = {
   "@context": "https://schema.org",
@@ -36,21 +35,14 @@ const organizationJsonLd = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const nav: NavItem[] = primaryNav.map((path) => ({ label: pages[path].label, href: path }));
   return (
-    <html lang="en-IN" className={`${body.variable} ${display.variable}`}>
+    <html lang="en-IN" className={inter.variable}>
       <head>
         {/* Enables reveal animations only when JS runs; content is fully visible otherwise. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
       </head>
       <body>
-        <a className="skip-link" href="#main">
-          Skip to content
-        </a>
-        <Header nav={nav} />
-        <main id="main">{children}</main>
-        <Footer />
-        <RevealObserver />
+        {children}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
       </body>
     </html>

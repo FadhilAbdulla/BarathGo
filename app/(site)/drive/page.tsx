@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Faq, FeatureGrid, PageHero, SectionHead } from "@/components/Blocks";
 import { Icon } from "@/components/Icon";
 import { RequestForm } from "@/components/RequestForm";
@@ -25,9 +26,9 @@ export default function DrivePage() {
   return (
     <>
       <PageHero tone="dark" eyebrow="Drive with BarathGo" title="Your car. Your work. Your fair share." intro="BarathGo is built for the people behind the wheel. Join India’s cooperative taxi platform with transparent payouts, welfare benefits and the backing of NFTCI.">
-        <a className="btn btn-primary btn-lg" href="#signup">
+        <Link className="btn btn-white btn-lg" href="/driver">
           Sign up to drive <Icon name="arrow" size={18} />
-        </a>
+        </Link>
         <a className="btn btn-on-dark btn-lg" href="#cooperatives">
           For cooperatives &amp; fleets
         </a>
@@ -52,8 +53,8 @@ export default function DrivePage() {
           <SectionHead eyebrow="Getting started" title="Onboarding in four steps" center />
           <ol className="steps" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
             <li className="reveal">
-              <h3>Register interest</h3>
-              <p>Fill in the form below. Our onboarding team calls you within two working days.</p>
+              <h3>Sign up in the app</h3>
+              <p>Log in with your mobile number in the driver app and add your vehicle and licence details.</p>
             </li>
             <li className="reveal">
               <h3>Share documents</h3>
@@ -72,12 +73,25 @@ export default function DrivePage() {
       </section>
 
       <section className="section section--cream" id="signup">
+        <div className="container" style={{ marginBottom: 48 }}>
+          <div className="cta-band reveal">
+            <div>
+              <h2>Ready to drive?</h2>
+              <p>Sign up in the driver app in a few minutes. Keep your licence, RC, permit and insurance handy.</p>
+            </div>
+            <div className="cta-band__actions">
+              <Link className="btn btn-white btn-lg" href="/driver">
+                Open the driver app
+              </Link>
+            </div>
+          </div>
+        </div>
         <div className="container split split--top">
           <div className="reveal">
-            <span className="eyebrow">Sign up</span>
-            <h2>Register as a driver partner</h2>
-            <p className="lead">Tell us a little about you and your vehicle. Cooperatives and fleet owners can register on behalf of their members.</p>
-            <h3 style={{ marginTop: 28 }}>Keep these documents ready</h3>
+            <span className="eyebrow">Cooperatives, unions &amp; fleets</span>
+            <h2>Onboard your members together</h2>
+            <p className="lead">Taxi unions, transport cooperatives, fleet owners and SHGs can bring their drivers onto BarathGo as a group. Tell us about your organisation and our partnerships team will get in touch.</p>
+            <h3 style={{ marginTop: 28 }}>Each driver will need</h3>
             <ul className="checklist">
               {["Valid driving licence (commercial / badge where required)", "Vehicle registration certificate (RC) and permit", "Insurance and pollution (PUC) certificate", "Aadhaar or other government ID, and bank account details"].map((item) => (
                 <li key={item}>
@@ -89,16 +103,17 @@ export default function DrivePage() {
           <RequestForm
             id="driver"
             kind="driver"
-            subject="Driver / partner sign-up"
-            submitLabel="Register interest"
-            successMessage="Thank you for registering. Our onboarding team will call you within two working days."
+            subject="Fleet / cooperative enquiry"
+            submitLabel="Send enquiry"
+            successMessage="Thank you. Our partnerships team will call you within two working days."
             fields={[
-              { name: "name", label: "Full name", required: true, autoComplete: "name" },
+              { name: "name", label: "Your name", required: true, autoComplete: "name" },
+              { name: "organisation", label: "Organisation" },
               { name: "phone", label: "Mobile number", type: "tel", required: true, autoComplete: "tel", placeholder: "+91" },
               { name: "city", label: "City / district", required: true, autoComplete: "address-level2" },
               { name: "state", label: "State / UT", autoComplete: "address-level1" },
-              { name: "role", label: "Joining as", type: "select", required: true, options: ["Independent driver", "Driver without own vehicle", "Fleet owner", "Taxi union / association", "Transport cooperative", "SHG / community group"] },
-              { name: "vehicle", label: "Vehicle type", type: "select", required: true, options: ["Auto-rickshaw", "E-rickshaw", "Hatchback", "Sedan", "SUV / MUV", "Electric car", "Tempo traveller / bus", "No vehicle yet"] },
+              { name: "role", label: "Joining as", type: "select", required: true, options: ["Fleet owner", "Taxi union / association", "Transport cooperative", "SHG / community group"] },
+              { name: "vehicle", label: "Main vehicle type", type: "select", options: ["Auto-rickshaw", "E-rickshaw", "Hatchback", "Sedan", "SUV / MUV", "Electric car", "Tempo traveller / bus", "No vehicle yet"] },
               { name: "fleet", label: "Number of vehicles", type: "number" },
               { name: "email", label: "Email", type: "email", autoComplete: "email" },
               { name: "message", label: "Anything else we should know?", type: "textarea", full: true },

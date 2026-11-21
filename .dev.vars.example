@@ -1,0 +1,4 @@
+# Local development only. Copy to .dev.vars (gitignored).
+# DEV_MODE=1: login codes are shown on screen instead of sent by SMS, and new drivers are auto-approved.
+DEV_MODE=1
+ADMIN_PHONES=9999999999

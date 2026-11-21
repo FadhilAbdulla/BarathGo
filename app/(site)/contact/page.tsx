@@ -21,7 +21,7 @@ export default function ContactPage() {
               <div>
                 <h3>Need a ride?</h3>
                 <p>
-                  The fastest way is the <Link href="/book">booking form</Link>. Our dispatch desk confirms by call or SMS.
+                  Book in the <Link href="/ride">BarathGo app</Link>. Your driver is assigned in minutes.
                 </p>
               </div>
             </div>

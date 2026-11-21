@@ -4,53 +4,58 @@ import { Logo } from "./Logo";
 
 const columns = [
   {
-    title: "Ride",
-    links: [
-      { label: "Book a ride", href: "/book" },
-      { label: "Ride options", href: "/services" },
-      { label: "Fare estimate", href: "/book#fares" },
-      { label: "Safety", href: "/safety" },
-    ],
-  },
-  {
-    title: "Partner",
-    links: [
-      { label: "Drive with BarathGo", href: "/drive" },
-      { label: "Cooperatives & unions", href: "/drive#cooperatives" },
-      { label: "BarathGo for Business", href: "/business" },
-    ],
-  },
-  {
     title: "Company",
     links: [
-      { label: "About", href: "/about" },
-      { label: "Contact & support", href: "/contact" },
-      { label: "Privacy", href: "/privacy" },
-      { label: "Terms", href: "/terms" },
+      { label: "About us", href: "/about" },
+      { label: "Safety", href: "/safety" },
+      { label: "Contact & help", href: "/contact" },
+    ],
+  },
+  {
+    title: "Products",
+    links: [
+      { label: "Ride", href: "/ride" },
+      { label: "Drive", href: "/drive" },
+      { label: "BarathGo for Business", href: "/business" },
+      { label: "All services", href: "/services" },
+    ],
+  },
+  {
+    title: "Apps",
+    links: [
+      { label: "Rider app", href: "/ride" },
+      { label: "Driver app", href: "/driver" },
+    ],
+  },
+  {
+    title: "Partners",
+    links: [
+      { label: "Cooperatives & fleets", href: "/drive#cooperatives" },
+      { label: "Corporate & PSU travel", href: "/business" },
+      { label: "Pilgrimage & tours", href: "/services#pilgrimage" },
     ],
   },
 ];
 
 export function Footer() {
   return (
-    <footer className="site-footer">
+    <footer className="footer">
       <div className="container">
-        <div className="footer-grid">
-          <div className="footer-brand">
-            <Link href="/" aria-label="BarathGo home">
-              <Logo invert />
-            </Link>
-            <p>{site.tagline} A community-first mobility platform launched under the {site.parent.legalName}.</p>
-            <a className="footer-mail" href={`mailto:${site.email}`}>
-              {site.email}
-            </a>
-          </div>
+        <div className="footer__top">
+          <Link href="/" aria-label="BarathGo home">
+            <Logo invert />
+          </Link>
+          <Link className="footer__help" href="/contact">
+            Visit Help Center
+          </Link>
+        </div>
+        <div className="footer__cols">
           {columns.map((column) => (
-            <div key={column.title} className="footer-col">
+            <div key={column.title}>
               <h2>{column.title}</h2>
               <ul>
                 {column.links.map((link) => (
-                  <li key={link.href}>
+                  <li key={link.label}>
                     <Link href={link.href}>{link.label}</Link>
                   </li>
                 ))}
@@ -58,14 +63,17 @@ export function Footer() {
             </div>
           ))}
         </div>
-        <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} BarathGo. All rights reserved.</span>
+        <div className="footer__bottom">
           <span>
-            An initiative of{" "}
+            © {new Date().getFullYear()} BarathGo · An initiative of{" "}
             <a href={site.parent.url} target="_blank" rel="noopener">
-              {site.parent.name}
-              <span className="sr-only"> (opens in a new tab)</span>
+              {site.parent.legalName}
             </a>
+          </span>
+          <span className="footer__legal">
+            <Link href="/privacy">Privacy</Link>
+            <Link href="/terms">Terms</Link>
+            <a href={`mailto:${site.email}`}>{site.email}</a>
           </span>
         </div>
       </div>

@@ -1,5 +1,5 @@
 {
-  // Cloudflare Worker: canonical-host redirects, serves the static export in out/, and handles POST /api/request.
+  // Cloudflare Worker: canonical-host redirects, the BarathGo API (/api/*) on D1, and the static Next.js export in out/.
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "barathgo-web",
   "main": "worker/index.ts",
@@ -13,12 +13,28 @@
     "not_found_handling": "404-page",
     "run_worker_first": true
   },
-  // 5 form submissions per minute per IP
-  "ratelimits": [{ "name": "REQUEST_LIMITER", "namespace_id": "1101", "simple": { "limit": 5, "period": 60 } }],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "barathgo",
+      // Replace with the id printed by `npx wrangler d1 create barathgo` before the first deploy.
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "ratelimits": [
+    // Forms and fare quotes: 30 per minute per IP
+    { "name": "REQUEST_LIMITER", "namespace_id": "1101", "simple": { "limit": 30, "period": 60 } },
+    // Login codes: 10 per minute per IP (mobile carriers share IPs); each phone is also limited to one code per 30 s
+    { "name": "OTP_LIMITER", "namespace_id": "1102", "simple": { "limit": 10, "period": 60 } }
+  ],
   "vars": {
     "MAIL_FROM": "BarathGo Website <website@barathgo.com>"
   }
-  // Secrets (set in Cloudflare with `wrangler secret put`, never in git):
-  //   RESEND_API_KEY  — Resend API key
-  //   MAIL_TO         — inbox(es) that receive ride requests and enquiries (comma-separated)
+  // Secrets (`npx wrangler secret put NAME`, never in git):
+  //   ADMIN_PHONES        — comma-separated mobiles with admin access
+  //   TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_FROM — SMS for login codes
+  //   RESEND_API_KEY, MAIL_TO — email delivery for website enquiries
+  //   OSRM_URL (optional)  — your own routing server; the default public demo server is for testing only
+  // Local development: copy .dev.vars.example to .dev.vars (DEV_MODE=1 shows login codes on screen).
 }
